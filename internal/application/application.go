@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	appuser "github.com/RealBirdMan91/blog/internal/application/services/user"
+	"github.com/RealBirdMan91/blog/internal/application/services/usersvc"
 	"github.com/RealBirdMan91/blog/internal/infrastructure/persistence/postgres"
 	"github.com/RealBirdMan91/blog/internal/infrastructure/persistence/postgres/migrations"
 	"github.com/RealBirdMan91/blog/internal/infrastructure/security/bcrypt"
@@ -14,7 +14,7 @@ import (
 type Application struct {
 	Logger *log.Logger
 	db     *sql.DB
-	Users  *appuser.Service
+	users  *usersvc.Service
 }
 
 func NewApplication() (*Application, error) {
@@ -33,14 +33,14 @@ func NewApplication() (*Application, error) {
 	userRepo := postgres.NewPostgresUsersRepo(pgDB)
 	hasher := bcrypt.New()
 
-	usersSvc := appuser.NewService(userRepo, hasher)
+	usersSvc := usersvc.NewService(userRepo, hasher)
 
 	// gql srv
 
 	app := &Application{
 		Logger: logger,
 		db:     pgDB,
-		Users:  usersSvc,
+		users:  usersSvc,
 	}
 	return app, nil
 }
@@ -51,3 +51,5 @@ func (a *Application) Close() error {
 	}
 	return nil
 }
+
+func (a *Application) Users() *usersvc.Service { return a.users }

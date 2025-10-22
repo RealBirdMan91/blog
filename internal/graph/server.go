@@ -5,20 +5,18 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler/extension"
 	"github.com/99designs/gqlgen/graphql/handler/lru"
 	"github.com/99designs/gqlgen/graphql/handler/transport"
+	"github.com/RealBirdMan91/blog/internal/application/services/usersvc"
+	"github.com/RealBirdMan91/blog/internal/graph/resolvers"
 	"github.com/vektah/gqlparser/v2/ast"
-
-	appuser "github.com/RealBirdMan91/blog/internal/application/services/user"
 )
 
-// Deps werden aus main/application injiziert.
 type Deps struct {
-	UserService *appuser.Service
+	UserService *usersvc.Service
 }
 
 func NewGraphQLServer(d Deps) *handler.Server {
-	// Wir sind im selben Paket "graph": KEIN graph.Import nötig.
-	srv := handler.New(NewExecutableSchema(Config{
-		Resolvers: &Resolver{UserService: d.UserService},
+	srv := handler.New(resolvers.NewExecutableSchema(resolvers.Config{
+		Resolvers: &resolvers.Resolver{UserService: d.UserService},
 	}))
 
 	srv.AddTransport(transport.Options{})

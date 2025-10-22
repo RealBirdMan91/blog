@@ -7,39 +7,12 @@ import (
 )
 
 type User struct {
-	id        uuid.UUID
-	email     Email
-	password  PasswordHash
-	avatar    AvatarURL
-	verified  bool
-	createdAt time.Time
-	updatedAt time.Time
-}
-
-func NewUser(emailRaw, passwordHash, avatarRaw string) (*User, error) {
-	em, err := NewEmail(emailRaw)
-	if err != nil {
-		return nil, err
-	}
-	pw, err := NewPasswordHash(passwordHash)
-	if err != nil {
-		return nil, err
-	}
-
-	av, err := NewAvatarURL(avatarRaw)
-	if err != nil {
-		return nil, err
-	}
-
-	return &User{
-		id:        uuid.New(),
-		email:     em,
-		password:  pw,
-		avatar:    av,
-		verified:  false,
-		createdAt: time.Now().UTC(),
-		updatedAt: time.Now().UTC(),
-	}, nil
+	id                   uuid.UUID
+	email                Email
+	password             PasswordHash
+	avatar               AvatarURL
+	verified             bool
+	createdAt, updatedAt time.Time
 }
 
 func (u *User) ID() uuid.UUID          { return u.id }

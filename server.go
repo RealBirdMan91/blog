@@ -26,8 +26,9 @@ func main() {
 	}
 	defer app.Close()
 
+	//http und graph server defer?
 	srv := graph.NewGraphQLServer(graph.Deps{
-		UserService: app.Users,
+		UserService: app.Users(),
 	})
 
 	mux := http.NewServeMux()
