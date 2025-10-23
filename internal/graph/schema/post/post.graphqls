@@ -1,0 +1,10 @@
+extend type Post {
+  id: ID!
+  body: String!
+  likes: Int!
+  views: Int!
+}
+
+extend type Mutation {
+  createPost(body: String): Post!
+}

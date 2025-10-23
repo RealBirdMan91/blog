@@ -1,49 +1,49 @@
 package content
 
 import (
-	"errors"
-	"strings"
 	"time"
-	"unicode/utf8"
 
 	"github.com/google/uuid"
 )
 
-var (
-	ErrEmptyBody   = errors.New("post body is empty")
-	ErrAuthorIDNil = errors.New("author id is nil")
-	ErrBodyTooLong = errors.New("post body too long")
-)
-
-const maxBodyRunes = 20_000
-
 type Post struct {
-	id        uuid.UUID
-	body      string
-	authorID  uuid.UUID
-	likes     int
-	views     int
+	id   uuid.UUID
+	body Body
+	//authorID  uuid.UUID
+	likes     Likes
+	views     Views
 	createdAt time.Time
 	updatedAt time.Time
 }
 
-func NewPost(body string, authorID uuid.UUID) (*Post, error) {
-	if strings.TrimSpace(body) == "" { // nur hier trimmen
-		return nil, ErrEmptyBody
+func NewPost(body string /*authorID uuid.UUID*/) (*Post, error) {
+	bo, err := NewBody(body)
+	if err != nil {
+		return nil, err
 	}
-	if utf8.RuneCountInString(body) > maxBodyRunes {
-		return nil, ErrBodyTooLong
+	li, err := NewLikes(0)
+	if err != nil {
+		return nil, err
 	}
-	if authorID == uuid.Nil {
-		return nil, ErrAuthorIDNil
+	vi, err := NewViews(0)
+	if err != nil {
+		return nil, err
 	}
+
 	return &Post{
-		id:        uuid.New(),
-		body:      body,
-		authorID:  authorID,
-		likes:     0,
-		views:     0,
+		id:   uuid.New(),
+		body: bo,
+		//authorID:  authorID,
+		likes:     li,
+		views:     vi,
 		createdAt: time.Now().UTC(),
 		updatedAt: time.Now().UTC(),
 	}, nil
 }
+
+func (p *Post) ID() uuid.UUID        { return p.id }
+func (p *Post) Body() Body           { return p.body }
+func (p *Post) Likes() Likes         { return p.likes }
+func (p *Post) Views() Views         { return p.views }
+func (p *Post) CreatedAt() time.Time { return p.createdAt }
+func (p *Post) UpdatedAt() time.Time { return p.updatedAt }

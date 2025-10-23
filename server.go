@@ -29,6 +29,8 @@ func main() {
 	//http und graph server defer?
 	srv := graph.NewGraphQLServer(graph.Deps{
 		UserService: app.Users(),
+		AuthService: app.Auth(),
+		PostService: app.Post(),
 	})
 
 	mux := http.NewServeMux()

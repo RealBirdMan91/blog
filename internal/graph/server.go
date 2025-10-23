@@ -5,6 +5,8 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler/extension"
 	"github.com/99designs/gqlgen/graphql/handler/lru"
 	"github.com/99designs/gqlgen/graphql/handler/transport"
+	"github.com/RealBirdMan91/blog/internal/application/services/authsvc"
+	"github.com/RealBirdMan91/blog/internal/application/services/postsvc"
 	"github.com/RealBirdMan91/blog/internal/application/services/usersvc"
 	"github.com/RealBirdMan91/blog/internal/graph/resolvers"
 	"github.com/vektah/gqlparser/v2/ast"
@@ -12,11 +14,13 @@ import (
 
 type Deps struct {
 	UserService *usersvc.Service
+	AuthService *authsvc.Service
+	PostService *postsvc.Service
 }
 
 func NewGraphQLServer(d Deps) *handler.Server {
 	srv := handler.New(resolvers.NewExecutableSchema(resolvers.Config{
-		Resolvers: &resolvers.Resolver{UserService: d.UserService},
+		Resolvers: &resolvers.Resolver{UserService: d.UserService, AuthService: d.AuthService, PostService: d.PostService},
 	}))
 
 	srv.AddTransport(transport.Options{})

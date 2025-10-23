@@ -37,7 +37,11 @@ func (r *mutationResolver) Signup(ctx context.Context, input model.CreateUserInp
 
 // Signin is the resolver for the signin field.
 func (r *mutationResolver) Signin(ctx context.Context, email string, password string) (string, error) {
-	panic(fmt.Errorf("not implemented: Signin - signin"))
+	token, err := r.AuthService.Login(ctx, email, password)
+	if err != nil {
+		return "", err
+	}
+	return token, nil
 }
 
 // Health is the resolver for the health field.
