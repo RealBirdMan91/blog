@@ -10,6 +10,7 @@ import (
 
 	"github.com/RealBirdMan91/blog/internal/application"
 	"github.com/RealBirdMan91/blog/internal/graph"
+	"github.com/RealBirdMan91/blog/internal/interfaces/httpauth"
 )
 
 const defaultPort = "8080"
@@ -20,7 +21,10 @@ func main() {
 		port = defaultPort
 	}
 
-	app, err := application.NewApplication()
+	app, err := application.NewApplication(application.Config{
+		JWTSecret: "dev-insecure-secret",
+		JWTTTL:    24 * time.Hour,
+	})
 	if err != nil {
 		panic(err)
 	}
@@ -35,7 +39,7 @@ func main() {
 
 	mux := http.NewServeMux()
 	mux.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	mux.Handle("/query", srv)
+	mux.Handle("/query", httpauth.Middleware(app.Verifier(), true)(srv))
 
 	server := &http.Server{
 		Addr:    fmt.Sprintf(":%s", port),

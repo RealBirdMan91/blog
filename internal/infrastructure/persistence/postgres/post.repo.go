@@ -15,12 +15,13 @@ var _ content.Repository = (*PostgresPostRepo)(nil)
 
 func (r *PostgresPostRepo) Create(ctx context.Context, p *content.Post) error {
 	const query = `
-		INSERT INTO posts (id, body, likes, views, created_at, updated_at)
-		VALUES ($1, $2, $3, $4, $5, $6)
+		INSERT INTO posts (id, author_id, body, likes, views, created_at, updated_at)
+		VALUES ($1, $2, $3, $4, $5, $6, $7)
 	`
 
 	_, err := r.db.ExecContext(ctx, query,
 		p.ID(),
+		p.AuthorID(),
 		p.Body().String(),
 		p.Likes().Int(),
 		p.Views().Int(),

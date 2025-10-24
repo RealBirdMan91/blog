@@ -7,16 +7,16 @@ import (
 )
 
 type Post struct {
-	id   uuid.UUID
-	body Body
-	//authorID  uuid.UUID
+	id        uuid.UUID
+	body      Body
+	authorID  uuid.UUID
 	likes     Likes
 	views     Views
 	createdAt time.Time
 	updatedAt time.Time
 }
 
-func NewPost(body string /*authorID uuid.UUID*/) (*Post, error) {
+func NewPost(body string, authorID uuid.UUID) (*Post, error) {
 	bo, err := NewBody(body)
 	if err != nil {
 		return nil, err
@@ -33,7 +33,7 @@ func NewPost(body string /*authorID uuid.UUID*/) (*Post, error) {
 	return &Post{
 		id:   uuid.New(),
 		body: bo,
-		//authorID:  authorID,
+		authorID:  authorID,
 		likes:     li,
 		views:     vi,
 		createdAt: time.Now().UTC(),
@@ -42,6 +42,7 @@ func NewPost(body string /*authorID uuid.UUID*/) (*Post, error) {
 }
 
 func (p *Post) ID() uuid.UUID        { return p.id }
+func (p *Post) AuthorID() uuid.UUID  { return p.authorID }
 func (p *Post) Body() Body           { return p.body }
 func (p *Post) Likes() Likes         { return p.likes }
 func (p *Post) Views() Views         { return p.views }
