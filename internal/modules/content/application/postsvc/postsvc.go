@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	"github.com/RealBirdMan91/blog/internal/domain/content"
-	"github.com/RealBirdMan91/blog/internal/interfaces/authctx"
+	content "github.com/RealBirdMan91/blog/internal/modules/content/domain"
+	"github.com/RealBirdMan91/blog/internal/shared/authctx"
 )
 
 var ErrUnauthenticated = errors.New("unauthenticated")
