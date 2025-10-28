@@ -3,8 +3,8 @@ package usersvc
 import (
 	"context"
 
-	"github.com/RealBirdMan91/blog/internal/application/ports"
-	"github.com/RealBirdMan91/blog/internal/domain/user"
+	"github.com/RealBirdMan91/blog/internal/modules/iam/application/ports"
+	user "github.com/RealBirdMan91/blog/internal/modules/iam/domain"
 )
 
 type Service struct {

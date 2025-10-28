@@ -1,7 +1,7 @@
 package bcrypt
 
 import (
-	"github.com/RealBirdMan91/blog/internal/application/ports"
+	"github.com/RealBirdMan91/blog/internal/modules/iam/application/ports"
 	bc "golang.org/x/crypto/bcrypt"
 )
 

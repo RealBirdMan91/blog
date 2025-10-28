@@ -5,10 +5,10 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler/extension"
 	"github.com/99designs/gqlgen/graphql/handler/lru"
 	"github.com/99designs/gqlgen/graphql/handler/transport"
-	"github.com/RealBirdMan91/blog/internal/application/services/authsvc"
-	"github.com/RealBirdMan91/blog/internal/application/services/postsvc"
-	"github.com/RealBirdMan91/blog/internal/application/services/usersvc"
 	"github.com/RealBirdMan91/blog/internal/graph/resolvers"
+	"github.com/RealBirdMan91/blog/internal/modules/content/application/postsvc"
+	"github.com/RealBirdMan91/blog/internal/modules/iam/application/authsvc"
+	"github.com/RealBirdMan91/blog/internal/modules/iam/application/usersvc"
 	"github.com/vektah/gqlparser/v2/ast"
 )
 

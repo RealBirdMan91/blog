@@ -10,7 +10,7 @@ import (
 
 	"github.com/RealBirdMan91/blog/internal/application"
 	"github.com/RealBirdMan91/blog/internal/graph"
-	"github.com/RealBirdMan91/blog/internal/interfaces/httpauth"
+	"github.com/RealBirdMan91/blog/internal/modules/iam/interfaces/httpauth"
 )
 
 const defaultPort = "8080"

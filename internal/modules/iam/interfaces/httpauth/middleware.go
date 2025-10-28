@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/RealBirdMan91/blog/internal/application/ports"
-	"github.com/RealBirdMan91/blog/internal/interfaces/authctx"
+	"github.com/RealBirdMan91/blog/internal/modules/iam/application/ports"
+	"github.com/RealBirdMan91/blog/internal/shared/authctx"
 	"github.com/google/uuid"
 )
 

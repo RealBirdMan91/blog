@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 
-	"github.com/RealBirdMan91/blog/internal/domain/content"
+	content "github.com/RealBirdMan91/blog/internal/modules/content/domain"
 )
 
 type PostgresPostRepo struct{ db *sql.DB }
