@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"time"
 
-	user "github.com/RealBirdMan91/blog/internal/modules/iam/domain"
+	"github.com/RealBirdMan91/blog/internal/domain/user"
 	"github.com/google/uuid"
 )
 

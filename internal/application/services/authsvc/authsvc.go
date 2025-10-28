@@ -4,8 +4,8 @@ import (
 	"context"
 	"errors"
 
-	"github.com/RealBirdMan91/blog/internal/modules/iam/application/ports"
-	user "github.com/RealBirdMan91/blog/internal/modules/iam/domain"
+	"github.com/RealBirdMan91/blog/internal/application/ports"
+	"github.com/RealBirdMan91/blog/internal/domain/user"
 )
 
 type Service struct {

@@ -6,16 +6,14 @@ import (
 	"os"
 	"time"
 
-	"github.com/RealBirdMan91/blog/internal/modules/content/application/postsvc"
-	contentpg "github.com/RealBirdMan91/blog/internal/modules/content/infrastructure/persistence/postgres"
-	"github.com/RealBirdMan91/blog/internal/modules/iam/application/authsvc"
-	"github.com/RealBirdMan91/blog/internal/modules/iam/application/ports"
-	"github.com/RealBirdMan91/blog/internal/modules/iam/application/usersvc"
-	iamjwt "github.com/RealBirdMan91/blog/internal/modules/iam/infrastructure/auth/jwt"
-	iampg "github.com/RealBirdMan91/blog/internal/modules/iam/infrastructure/persistence/postgres"
-	iambcrypt "github.com/RealBirdMan91/blog/internal/modules/iam/infrastructure/security/bcrypt"
-	"github.com/RealBirdMan91/blog/internal/platform/postgres"
-	"github.com/RealBirdMan91/blog/internal/platform/postgres/migrations"
+	"github.com/RealBirdMan91/blog/internal/application/ports"
+	"github.com/RealBirdMan91/blog/internal/application/services/authsvc"
+	"github.com/RealBirdMan91/blog/internal/application/services/postsvc"
+	"github.com/RealBirdMan91/blog/internal/application/services/usersvc"
+	"github.com/RealBirdMan91/blog/internal/infrastructure/auth/jwt"
+	"github.com/RealBirdMan91/blog/internal/infrastructure/persistence/postgres"
+	"github.com/RealBirdMan91/blog/internal/infrastructure/persistence/postgres/migrations"
+	"github.com/RealBirdMan91/blog/internal/infrastructure/security/bcrypt"
 )
 
 type Application struct {
@@ -46,12 +44,12 @@ func NewApplication(cfg Config) (*Application, error) {
 	}
 
 	//repo
-	userRepo := iampg.NewPostgresUsersRepo(pgDB)
-	postRepo := contentpg.NewPostgresPostRepo(pgDB)
+	userRepo := postgres.NewPostgresUsersRepo(pgDB)
+	postRepo := postgres.NewPostgresPostRepo(pgDB)
 	//helper
 
-	hasher := iambcrypt.New()
-	j := iamjwt.NewHS256([]byte(cfg.JWTSecret), cfg.JWTTTL)
+	hasher := bcrypt.New()
+	j := jwt.NewHS256([]byte(cfg.JWTSecret), cfg.JWTTTL)
 	//services
 	usersSvc := usersvc.NewService(userRepo, hasher)
 	authSvc := authsvc.New(userRepo, hasher, j)
