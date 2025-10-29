@@ -1,9 +1,9 @@
 package resolvers
 
 import (
-	"github.com/RealBirdMan91/blog/internal/modules/content/application/postsvc"
-	"github.com/RealBirdMan91/blog/internal/modules/iam/application/authsvc"
-	"github.com/RealBirdMan91/blog/internal/modules/iam/application/usersvc"
+	"github.com/RealBirdMan91/blog/internal/application/services/authsvc"
+	"github.com/RealBirdMan91/blog/internal/application/services/postsvc"
+	"github.com/RealBirdMan91/blog/internal/application/services/usersvc"
 )
 
 //go:generate go run github.com/99designs/gqlgen generate

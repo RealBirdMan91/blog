@@ -4,7 +4,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/RealBirdMan91/blog/internal/modules/iam/application/ports"
+	"github.com/RealBirdMan91/blog/internal/application/ports"
 	jwtv4 "github.com/golang-jwt/jwt/v4"
 )
 
